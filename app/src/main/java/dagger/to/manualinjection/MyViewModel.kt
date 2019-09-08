@@ -4,10 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
-class MyViewModel @Inject constructor(
+class MyViewModel(
     private val repo: CityRepo
 ) : ViewModel() {
 

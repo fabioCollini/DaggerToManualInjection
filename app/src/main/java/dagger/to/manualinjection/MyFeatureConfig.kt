@@ -1,18 +1,19 @@
 package dagger.to.manualinjection
 
+import android.app.Application
 import android.content.SharedPreferences
-import dagger.Binds
 import dagger.Component
 import dagger.Module
+import dagger.Provides
 import javax.inject.Scope
 
 @Scope
 annotation class MyFeatureScope
 
 @Module
-abstract class MyFeatureModule {
-    @Binds
-    abstract fun bindCityRepo(impl: CityRepoImpl): CityRepo
+class MyFeatureModule {
+    @Provides
+    fun provideCityRepo(app: Application): CityRepo = CityRepoImpl(app)
 }
 
 @MyFeatureScope

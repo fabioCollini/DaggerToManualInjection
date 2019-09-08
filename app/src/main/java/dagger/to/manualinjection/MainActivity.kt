@@ -1,33 +1,26 @@
 package dagger.to.manualinjection
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.lifecycle.observe
-import javax.inject.Inject
-import javax.inject.Provider
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var viewModelProvider: Provider<MyViewModel>
+    private val component by lazy {
+        DaggerMyActivityComponent.builder()
+            .myFeatureComponent((application as MyApp).myFeatureComponent)
+            .build()
+    }
 
-    @Inject
-    lateinit var prefs: SharedPreferences
+    private val prefs by lazy { component.prefs }
 
-    private val viewModel by viewModel { viewModelProvider.get() }
+    private val viewModel by viewModel { component.myViewModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val myApp = application as MyApp
-
-        DaggerMyActivityComponent.builder()
-            .myFeatureComponent(myApp.myFeatureComponent)
-            .build()
-            .inject(this)
 
         viewModel.loadData()
 
