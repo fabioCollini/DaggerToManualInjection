@@ -4,13 +4,13 @@ import android.app.Application
 
 class MyApp : Application() {
     val coreComponent: CoreComponent by lazy {
-        DaggerCoreComponent.factory().create(this)
+        CoreComponentImpl(this)
     }
 
     lateinit var myFeatureComponent: MyFeatureComponent
 
     override fun onCreate() {
         super.onCreate()
-        myFeatureComponent = DaggerMyFeatureComponent.builder().coreComponent(coreComponent).build()
+        myFeatureComponent = MyFeatureComponentImpl(coreComponent)
     }
 }

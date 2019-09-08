@@ -10,9 +10,7 @@ import androidx.lifecycle.observe
 class MainActivity : AppCompatActivity() {
 
     private val component by lazy {
-        DaggerMyActivityComponent.builder()
-            .myFeatureComponent((application as MyApp).myFeatureComponent)
-            .build()
+        MyActivityComponentImpl((application as MyApp).myFeatureComponent)
     }
 
     private val prefs by lazy { component.prefs }
